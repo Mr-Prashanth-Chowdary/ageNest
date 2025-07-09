@@ -18,6 +18,7 @@ import EditProfile from "./components/EditProfile";
 import FloatingIsland from "./components/Menu";
 import "./App.css";
 import Stories from "./components/Stories";
+import SearchUser from "./components/SearchUser";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -43,6 +44,7 @@ function App() {
               <div className="feed-container">
                 <Stories/>
                 <PostsFeed />
+
               </div>
             ) : (
               <Navigate to="/login" replace />

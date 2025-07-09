@@ -26,11 +26,19 @@ setPersistence(auth, browserLocalPersistence)
 
 
 const createUserProfile = async (user, age) => {
-  const userRef = doc(db, 'users', user.uid)
-  if (!(await getDoc(userRef)).exists()) {
-    await setDoc(userRef, { age, createdAt: serverTimestamp() })
+  const userRef = doc(db, 'users', user.uid);
+  const snap = await getDoc(userRef);
+
+  if (!snap.exists()) {
+    const displayName = user.displayName || 'Anonymous';
+    await setDoc(userRef, {
+      age,
+      createdAt: serverTimestamp(),
+      displayName,
+      displayNameLower: displayName.toLowerCase()
+    });
   }
-}
+};
 
 export const signUpAnonymous = async age => {
   const { user } = await signInAnonymously(auth)
